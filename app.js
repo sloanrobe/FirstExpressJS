@@ -16,6 +16,21 @@ let products = [
     res.json(products)
   })
 
+  /* app.get('/products/:productId', (req, res) => {
+    const productId = parseInt(req.params.productId, 10)
+    const product = products.find(p => p.id === productId) */
+
+    app.get('/products/:productName', (req, res) => {
+      const productName = req.params.productName.toLowerCase()
+      const product = products.find(p => p.name.toLowerCase() === productName)
+
+    if (product) {
+      res.json(product)
+    } else {
+      res.status(404).json({ error: 'Product not found!' })
+    }
+  })
+
   app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
   })
